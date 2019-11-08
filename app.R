@@ -59,7 +59,7 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  # Filter diamonds based on carat - this doesn't strictly need to be in reactive,
+  # Filter mtcars based on hp - this doesn't strictly need to be in reactive,
   # ...but maybe we want to expand the app later, in which case it'll be useful to have it in reactive()
   filt_dia <- reactive({
     mtcars %>%
@@ -69,7 +69,7 @@ server <- function(input, output) {
   
   # Make the plot
   # eventReactive listens for a change in state of input$go, and only runs the code when the state changes
-  # Note use of aes_string, since input$xvar returns a string, not a reference to the object ("carat" not carat)
+  # Note use of aes_string, since input$xvar returns a string.
   p_mtcars <- eventReactive(input$go, {
     ggplot(filt_dia(), aes_string(x = input$xvar, y = input$yvar)) + # Note that you need () after filt_dia, since filt_dia() is a function to get the object you want, not the actual object
       geom_point()

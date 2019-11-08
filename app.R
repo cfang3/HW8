@@ -3,19 +3,17 @@
 ########
 
 # These bits get run before any of the rest of the code
-# Note: contrary to what I told you on Monday, the use of the global.R file is no longer recommended.
-# At present, I'm not sure why.
 library(shiny)
 library(tidyverse)
 
-# We'll limit the range of selectable carats to teh actual range of carats
+# Limit the range of selectable hp to the actual range of hp
 min.hp <- min(mtcars$hp)
 max.hp <- max(mtcars$hp)
 
 # Need a vector of axis variables as characters
 axis_vars <- names(mtcars)
-# Create a character vector of those columns of diamonds that are 
-factors.indices <- vapply(diamonds, is.factor, TRUE) # vapply is a base R function like sapply & lapply that we haven't talked about
+# Create a character vector of columns in mtcars 
+factors.indices <- vapply(mtcars, is.factor, TRUE) # vapply is a base R function like sapply & lapply that we haven't talked about
 # It applies a function (is.factor) to every element of a list (diamonds, remember that a data frame is a list)
 # The 'TRUE' is at the end to convey that we want vapply to return the results as a logical vector:
 #   I could just as well have used FALSE or c(TRUE, FALSE, TRUE) or any other logical vector
@@ -43,19 +41,19 @@ ui <- fluidPage(
       # Select x and y variables
       selectInput(inputId = "xvar",
                   label = "X axis",
-                  choices = axis_var,
-                  selected = "mpg"),
+                  choices = axis_vars,
+                  selected = "x"),
       
       selectInput(inputId = "yvar",
                   label = "Y axis",
-                  choices = axis_var,
-                  selected = "disp"),
+                  choices = axis_vars,
+                  selected = "y"),
       
       # I can't stop, I want to add a splash of color
       selectInput(inputId = "color",
                   label = "Color", 
                   choices = factor.columns,
-                  selected = "carat"),
+                  selected = "hp"),
       
       actionButton("go", 
                    "Go!",

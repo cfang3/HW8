@@ -1,8 +1,8 @@
 ########
-# Shiny app to create a dynamically-filterable visualization of the diamonds app
+# Shiny app to create a visualization of the mtcars dataset as a 2-d graph.
 ########
 
-# These bits get run before any of the rest of the code
+# These bits get run before any of the rest of the code; loads necessary packages
 library(shiny)
 library(tidyverse)
 
@@ -17,7 +17,7 @@ axis_vars <- names(mtcars)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   
-  # Application title
+  # Title
   titlePanel("Mtcars viewer"),
   
   # Sidebar with a slider input for number of bins 
@@ -43,13 +43,13 @@ ui <- fluidPage(
                   choices = axis_vars,
                   selected = "y"),
       
-      
+  # Make the "go" butoon    
       actionButton("go", 
                    "Go!",
                    icon = icon("thumbs-up")) # see available icons at http://fontawesome.io/icons/ and http://getbootstrap.com/components/#glyphicons
     ),
     
-    # Show a plot of diamonds data frame. This output doesn't care what that plot is, only that it will be associated with output$diamonds_plot
+    # Show a plot of mtcars data frame. 
     mainPanel(
       plotOutput("mtcars_plot")
     )
